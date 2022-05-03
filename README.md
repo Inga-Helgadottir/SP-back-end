@@ -6,6 +6,16 @@
 
 ## To deploy with a push to github
 
+### Change the following line in the mavenworkflow.yml file
+
+in line 5
+
+- master
+
+to 
+
+- main
+
 ### Change the following lines in the pom.xml file
 
 in line 6 
