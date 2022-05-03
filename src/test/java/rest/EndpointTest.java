@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import utils.EMF_Creator;
 
 //Disabled
-public class LoginEndpointTest {
+public class EndpointTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
@@ -243,10 +243,11 @@ public class LoginEndpointTest {
     }
 
     /*
-    Authors: Inga
+    Author: Inga
     Date: 03/05/2022
 
-    This test tests the endpoint that gets all cocktails with the first letter a
+    This function tests the endpoint that gets all cocktails with the first letter a
+    The function tested here is located src\main\java\rest\DemoResource.java
     */
     @Test
     void cocktailsByLetterTest() {
@@ -259,10 +260,11 @@ public class LoginEndpointTest {
     }
 
     /*
-    Authors: Inga
+    Author: Inga
     Date: 03/05/2022
 
-    This test tests the endpoint that gets all cocktails with the name margarita
+    This function tests the endpoint that gets all cocktails with the name margarita
+    The function tested here is located src\main\java\rest\DemoResource.java
     */
     @Test
     void cocktailsByNameTest() {
@@ -275,10 +277,11 @@ public class LoginEndpointTest {
     }
 
     /*
-    Authors: Inga
+    Author: Inga
     Date: 03/05/2022
 
-    This test tests the endpoint that gets all cocktails with vodka as the ingridient
+    This function tests the endpoint that gets all cocktails with vodka as the ingridient
+    The function tested here is located src\main\java\rest\DemoResource.java
     */
     @Test
     void cocktailsWithIngridientTest() {
@@ -291,10 +294,11 @@ public class LoginEndpointTest {
     }
 
     /*
-    Authors: Inga
+    Author: Inga
     Date: 03/05/2022
 
-    This test tests the endpoint that gets a random cocktail
+    This function tests the endpoint that gets a random cocktail
+    The function tested here is located src\main\java\rest\DemoResource.java
     */
     @Test
     void cocktailRandomTest() {
