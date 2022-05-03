@@ -8,9 +8,14 @@ package facades;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
+import entities.Cocktail;
+import entities.MeasurementsIngredients;
 import entities.Role;
 import entities.User;
 import utils.EMF_Creator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -46,8 +51,27 @@ public class Populator {
         System.out.println("Testing user with wrong password: " + user.verifyPassword("test1"));
         System.out.println("Created TEST Users");
     }
+    public static void populateCocktails(){
+        EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
+        EntityManager em = emf.createEntityManager();
+
+        Cocktail c = new Cocktail("A1");
+
+        em.getTransaction().begin();
+        MeasurementsIngredients m = new MeasurementsIngredients("1 3/4 shot Gin");
+        MeasurementsIngredients m2 = new MeasurementsIngredients("1 shot Grand Marnier");
+        MeasurementsIngredients m3 = new MeasurementsIngredients("1/4 shot Lemmon juice");
+        MeasurementsIngredients m4 = new MeasurementsIngredients("1/8 shot Grenadine");
+        c.addMeasurementsIngredients(m);
+        c.addMeasurementsIngredients(m2);
+        c.addMeasurementsIngredients(m3);
+        c.addMeasurementsIngredients(m4);
+        em.persist(c);
+        em.getTransaction().commit();
+    }
     
     public static void main(String[] args) {
-        populate();
+//        populate();
+        populateCocktails();
     }
 }
