@@ -1,0 +1,3 @@
+https://www.mindrot.org/projects/jBCrypt/
+
+https://docs.google.com/document/d/1J0pLlU-9iLoVn_yqt5RnJ_nsQExt_kcajMoJ47wsRN4/edit
