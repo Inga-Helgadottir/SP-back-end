@@ -48,11 +48,11 @@ public class Cocktails implements Serializable {
     @Column(name = "imageAlt")
     private String imageAlt;
     @JoinTable(name = "ingredients", joinColumns = {
-            @JoinColumn(name = "user", referencedColumnName = "user")})
+            @JoinColumn(name = "user", referencedColumnName = "ingredient")})
     @ManyToMany
     private List<Ingredient> ingredients;
     @JoinTable(name = "mesurements", joinColumns = {
-            @JoinColumn(name = "user", referencedColumnName = "user")})
+            @JoinColumn(name = "user", referencedColumnName = "mesurement")})
     @ManyToMany
     private List<Mesurement> mesurements;
     @Basic(optional = true)

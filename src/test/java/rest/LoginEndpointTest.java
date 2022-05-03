@@ -119,126 +119,190 @@ public class LoginEndpointTest {
     @Test
     public void testRestNoAuthenticationRequired() {
         given()
-                .contentType("application/json")
-                .when()
-                .get("/info/").then()
-                .statusCode(200)
-                .body("msg", equalTo("Hello anonymous"));
+            .contentType("application/json")
+            .when()
+            .get("/info/").then()
+            .statusCode(200)
+            .body("msg", equalTo("Hello anonymous"));
     }
 
     @Test
     public void testRestForAdmin() {
         login("admin", "test");
         given()
-                .contentType("application/json")
-                .accept(ContentType.JSON)
-                .header("x-access-token", securityToken)
-                .when()
-                .get("/info/admin").then()
-                .statusCode(200)
-                .body("msg", equalTo("Hello to (admin) User: admin"));
+            .contentType("application/json")
+            .accept(ContentType.JSON)
+            .header("x-access-token", securityToken)
+            .when()
+            .get("/info/admin").then()
+            .statusCode(200)
+            .body("msg", equalTo("Hello to (admin) User: admin"));
     }
 
     @Test
     public void testRestForUser() {
         login("user", "test");
         given()
-                .contentType("application/json")
-                .header("x-access-token", securityToken)
-                .when()
-                .get("/info/user").then()
-                .statusCode(200)
-                .body("msg", equalTo("Hello to User: user"));
+            .contentType("application/json")
+            .header("x-access-token", securityToken)
+            .when()
+            .get("/info/user").then()
+            .statusCode(200)
+            .body("msg", equalTo("Hello to User: user"));
     }
 
     @Test
     public void testAutorizedUserCannotAccesAdminPage() {
         login("user", "test");
         given()
-                .contentType("application/json")
-                .header("x-access-token", securityToken)
-                .when()
-                .get("/info/admin").then() //Call Admin endpoint as user
-                .statusCode(401);
+            .contentType("application/json")
+            .header("x-access-token", securityToken)
+            .when()
+            .get("/info/admin").then() //Call Admin endpoint as user
+            .statusCode(401);
     }
 
     @Test
     public void testAutorizedAdminCannotAccesUserPage() {
         login("admin", "test");
         given()
-                .contentType("application/json")
-                .header("x-access-token", securityToken)
-                .when()
-                .get("/info/user").then() //Call User endpoint as Admin
-                .statusCode(401);
+            .contentType("application/json")
+            .header("x-access-token", securityToken)
+            .when()
+            .get("/info/user").then() //Call User endpoint as Admin
+            .statusCode(401);
     }
 
     @Test
     public void testRestForMultiRole1() {
         login("user_admin", "test");
         given()
-                .contentType("application/json")
-                .accept(ContentType.JSON)
-                .header("x-access-token", securityToken)
-                .when()
-                .get("/info/admin").then()
-                .statusCode(200)
-                .body("msg", equalTo("Hello to (admin) User: user_admin"));
+            .contentType("application/json")
+            .accept(ContentType.JSON)
+            .header("x-access-token", securityToken)
+            .when()
+            .get("/info/admin").then()
+            .statusCode(200)
+            .body("msg", equalTo("Hello to (admin) User: user_admin"));
     }
 
     @Test
     public void testRestForMultiRole2() {
         login("user_admin", "test");
         given()
-                .contentType("application/json")
-                .header("x-access-token", securityToken)
-                .when()
-                .get("/info/user").then()
-                .statusCode(200)
-                .body("msg", equalTo("Hello to User: user_admin"));
+            .contentType("application/json")
+            .header("x-access-token", securityToken)
+            .when()
+            .get("/info/user").then()
+            .statusCode(200)
+            .body("msg", equalTo("Hello to User: user_admin"));
     }
 
     @Test
     public void userNotAuthenticated() {
         logOut();
         given()
-                .contentType("application/json")
-                .when()
-                .get("/info/user").then()
-                .statusCode(403)
-                .body("code", equalTo(403))
-                .body("message", equalTo("Not authenticated - do login"));
+            .contentType("application/json")
+            .when()
+            .get("/info/user").then()
+            .statusCode(403)
+            .body("code", equalTo(403))
+            .body("message", equalTo("Not authenticated - do login"));
     }
 
     @Test
     public void adminNotAuthenticated() {
         logOut();
         given()
-                .contentType("application/json")
-                .when()
-                .get("/info/user").then()
-                .statusCode(403)
-                .body("code", equalTo(403))
-                .body("message", equalTo("Not authenticated - do login"));
+            .contentType("application/json")
+            .when()
+            .get("/info/user").then()
+            .statusCode(403)
+            .body("code", equalTo(403))
+            .body("message", equalTo("Not authenticated - do login"));
     }
 
     @Test
     void pokemon() {
         login("user_admin", "test");
         given()
-                .contentType("application/json")
-                .when()
-                .get("info/pokemon").then()
-                .statusCode(200);
+            .contentType("application/json")
+            .when()
+            .get("info/pokemon").then()
+            .statusCode(200);
     }
 
     @Test
     void swapi() {
         login("user_admin", "test");
         given()
+            .contentType("application/json")
+            .when()
+            .get("info/swapi").then()
+            .statusCode(200);
+    }
+
+    /*
+    Authors: Inga
+    Date: 03/05/2022
+
+    This test tests the endpoint that gets all cocktails with the first letter a
+    */
+    @Test
+    void cocktailsByLetterTest() {
+        login("user_admin", "test");
+        given()
+            .contentType("application/json")
+            .when()
+            .get("info/cocktails/letter/a").then()
+            .statusCode(200);
+    }
+
+    /*
+    Authors: Inga
+    Date: 03/05/2022
+
+    This test tests the endpoint that gets all cocktails with the name margarita
+    */
+    @Test
+    void cocktailsByNameTest() {
+        login("user_admin", "test");
+        given()
                 .contentType("application/json")
                 .when()
-                .get("info/swapi").then()
+                .get("info/cocktails/letter/margarita").then()
                 .statusCode(200);
+    }
+
+    /*
+    Authors: Inga
+    Date: 03/05/2022
+
+    This test tests the endpoint that gets all cocktails with vodka as the ingridient
+    */
+    @Test
+    void cocktailsWithIngridientTest() {
+        login("user_admin", "test");
+        given()
+            .contentType("application/json")
+            .when()
+            .get("info/cocktails/ingridient/vodka").then()
+            .statusCode(200);
+    }
+
+    /*
+    Authors: Inga
+    Date: 03/05/2022
+
+    This test tests the endpoint that gets a random cocktail
+    */
+    @Test
+    void cocktailRandomTest() {
+        login("user_admin", "test");
+        given()
+            .contentType("application/json")
+            .when()
+            .get("info/cocktails/random").then()
+            .statusCode(200);
     }
 }

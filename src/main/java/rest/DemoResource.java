@@ -104,7 +104,7 @@ public class DemoResource {
     @GET
     @Path("cocktails/letter/{letter}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response cocktails(@PathParam("letter") String letter) {
+    public Response cocktailsByLetter(@PathParam("letter") String letter) {
         return Response.ok()
                 .entity(GSON.toJson(getNoUrl("https://www.thecocktaildb.com/api/json/v1/1/search.php?f="+letter)))
                 .build();
@@ -152,7 +152,7 @@ public class DemoResource {
     @GET
     @Path("cocktails/random")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response cocktailsRandom() {
+    public Response cocktailRandom() {
         return Response.ok()
                 .entity(GSON.toJson(getNoUrl("https://www.thecocktaildb.com/api/json/v1/1/random.php")))
                 .build();
