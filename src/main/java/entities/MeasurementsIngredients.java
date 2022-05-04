@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
+@NamedQuery(name = "MeasurementsIngredients.deleteAllRows", query = "DELETE from MeasurementsIngredients mi")
 @Table(name = "MeasurementsIngredients")
 public class MeasurementsIngredients implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -44,5 +45,14 @@ public class MeasurementsIngredients implements Serializable {
 
     public void setCocktail(Cocktail cocktail) {
         this.cocktail = cocktail;
+    }
+
+    @Override
+    public String toString() {
+        return "MeasurementsIngredients{" +
+                "id=" + id +
+                ", measurementIngredient='" + measurementIngredient + '\'' +
+                ", cocktail=" + cocktail +
+                '}';
     }
 }

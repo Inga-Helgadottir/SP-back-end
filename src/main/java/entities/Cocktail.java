@@ -3,6 +3,7 @@ package entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
+@NamedQuery(name = "Cocktail.deleteAllRows", query = "DELETE from Cocktail c")
 @Table(name = "cocktail")
 public class Cocktail implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -33,7 +35,7 @@ public class Cocktail implements Serializable {
     private String glass;
 
     @NotNull
-    @Column(name = "instructions")
+    @Column(name = "instructions", length = 500)
     private String instructions;
 
     @NotNull
@@ -73,6 +75,14 @@ public class Cocktail implements Serializable {
         this.imageAlt = imageAlt;
         this.user = user;
         this.measurementsIngredients = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -138,5 +148,20 @@ public class Cocktail implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Cocktail{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", alcoholic='" + alcoholic + '\'' +
+                ", glass='" + glass + '\'' +
+                ", instructions='" + instructions + '\'' +
+                ", image='" + image + '\'' +
+                ", imageAlt='" + imageAlt + '\'' +
+                ", user=" + user +
+                ", measurementsIngredients=" + measurementsIngredients +
+                '}';
     }
 }

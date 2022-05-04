@@ -60,7 +60,7 @@ public class Populator {
 //        uf.getUserFacade(emf);
 //        User user = uf.findUserByName("user");
         Cocktail c = new Cocktail("A1", "Alcoholic", "Cocktail glass", "Pour all ingredients into a cocktail shaker, mix and serve over ice into a chilled glass.", "https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg", "A1");
-//        Cocktail c2 = new Cocktail("ABC", "Alcoholic", "Shot glass", "Layered in a shot glass.", "https://www.thecocktaildb.com/images/media/drink/tqpvqp1472668328.jpg", "ABC", user);
+        Cocktail c2 = new Cocktail("ABC", "Alcoholic", "Shot glass", "Layered in a shot glass.", "https://www.thecocktaildb.com/images/media/drink/tqpvqp1472668328.jpg", "ABC");
 
         em.getTransaction().begin();
         MeasurementsIngredients m = new MeasurementsIngredients("1 3/4 shot Gin");
@@ -78,7 +78,6 @@ public class Populator {
 //        c2.addMeasurementsIngredients(m5);
 //        c2.addMeasurementsIngredients(m6);
 //        c2.addMeasurementsIngredients(m7);
-//        c2.setUser(user);
 
         em.persist(c);
 //        em.persist(c2);
