@@ -309,4 +309,13 @@ public class EndpointTest {
             .get("info/cocktails/random").then()
             .statusCode(200);
     }
+
+    /*TODO:
+       make endpoints and front-end for
+            seeAllCocktails
+            getCocktailById
+            seeAllMeasurementsIngredientsFromCocktailId
+            makeCocktail
+
+    */
 }
