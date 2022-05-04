@@ -56,8 +56,11 @@ public class Populator {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
 
+//        UserFacade uf = new UserFacade();
+//        uf.getUserFacade(emf);
+//        User user = uf.findUserByName("user");
         Cocktail c = new Cocktail("A1", "Alcoholic", "Cocktail glass", "Pour all ingredients into a cocktail shaker, mix and serve over ice into a chilled glass.", "https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg", "A1");
-        Cocktail c2 = new Cocktail("ABC", "Alcoholic", "Shot glass", "Layered in a shot glass.", "https://www.thecocktaildb.com/images/media/drink/tqpvqp1472668328.jpg", "ABC");
+//        Cocktail c2 = new Cocktail("ABC", "Alcoholic", "Shot glass", "Layered in a shot glass.", "https://www.thecocktaildb.com/images/media/drink/tqpvqp1472668328.jpg", "ABC", user);
 
         em.getTransaction().begin();
         MeasurementsIngredients m = new MeasurementsIngredients("1 3/4 shot Gin");
@@ -69,25 +72,21 @@ public class Populator {
         c.addMeasurementsIngredients(m3);
         c.addMeasurementsIngredients(m4);
 
-        MeasurementsIngredients m5 = new MeasurementsIngredients("1/3 Amaretto");
-        MeasurementsIngredients m6 = new MeasurementsIngredients("1/3 Baileys irish cream");
-        MeasurementsIngredients m7 = new MeasurementsIngredients("1/3 Cognac");
-        c.addMeasurementsIngredients(m5);
-        c.addMeasurementsIngredients(m6);
-        c.addMeasurementsIngredients(m7);
-        UserFacade uf = new UserFacade();
-        uf.getUserFacade(emf);
-        User user = uf.findUserByName("user");
-        user.addCocktails(c2);
-//        c.setUser(user);
+//        MeasurementsIngredients m5 = new MeasurementsIngredients("1/3 Amaretto");
+//        MeasurementsIngredients m6 = new MeasurementsIngredients("1/3 Baileys irish cream");
+//        MeasurementsIngredients m7 = new MeasurementsIngredients("1/3 Cognac");
+//        c2.addMeasurementsIngredients(m5);
+//        c2.addMeasurementsIngredients(m6);
+//        c2.addMeasurementsIngredients(m7);
+//        c2.setUser(user);
 
         em.persist(c);
-        em.persist(c2);
+//        em.persist(c2);
         em.getTransaction().commit();
     }
     
     public static void main(String[] args) {
-        populate();
-//        populateCocktails();
+//        populate();
+        populateCocktails();
     }
 }

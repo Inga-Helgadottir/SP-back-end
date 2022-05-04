@@ -29,12 +29,7 @@ public class User implements Serializable {
   @ManyToMany
   private List<Role> roleList = new ArrayList<>();
 
-//  @OneToMany(mappedBy = "hobby")
-//  private List<Person> people = new ArrayList<>();
-
-//  @OneToMany(cascade=CascadeType.ALL)
-//  @JoinColumn(name="user_name", nullable = true)
-@OneToMany(mappedBy = "hobby")
+  @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
   private List<Cocktail> cocktails;
 
   public List<String> getRolesAsStrings() {

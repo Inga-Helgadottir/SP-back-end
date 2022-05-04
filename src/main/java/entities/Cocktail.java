@@ -64,16 +64,16 @@ public class Cocktail implements Serializable {
         this.measurementsIngredients = new ArrayList<>();
     }
 
-//    public Cocktail(String name, String alcoholic, String glass, String instructions, String image, String imageAlt, User user) {
-//        this.name = name;
-//        this.alcoholic = alcoholic;
-//        this.glass = glass;
-//        this.instructions = instructions;
-//        this.image = image;
-//        this.imageAlt = imageAlt;
-//        this.user = user;
-//        this.measurementsIngredients = new ArrayList<>();
-//    }
+    public Cocktail(String name, String alcoholic, String glass, String instructions, String image, String imageAlt, User user) {
+        this.name = name;
+        this.alcoholic = alcoholic;
+        this.glass = glass;
+        this.instructions = instructions;
+        this.image = image;
+        this.imageAlt = imageAlt;
+        this.user = user;
+        this.measurementsIngredients = new ArrayList<>();
+    }
 
     public String getName() {
         return name;
