@@ -13,7 +13,7 @@ public class UserFacade {
     private static EntityManagerFactory emf;
     private static UserFacade instance;
 
-    private UserFacade() {
+    protected UserFacade() {
     }
 
     /**
@@ -37,6 +37,17 @@ public class UserFacade {
             if (user == null || !user.verifyPassword(password)) {
                 throw new AuthenticationException("Invalid user name or password");
             }
+        } finally {
+            em.close();
+        }
+        return user;
+    }
+
+    public User findUserByName(String username) {
+        EntityManager em = emf.createEntityManager();
+        User user;
+        try {
+            user = em.find(User.class, username);
         } finally {
             em.close();
         }

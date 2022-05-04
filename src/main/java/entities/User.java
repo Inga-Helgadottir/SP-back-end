@@ -3,14 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.mindrot.jbcrypt.BCrypt;
@@ -36,6 +29,14 @@ public class User implements Serializable {
   @ManyToMany
   private List<Role> roleList = new ArrayList<>();
 
+//  @OneToMany(mappedBy = "hobby")
+//  private List<Person> people = new ArrayList<>();
+
+//  @OneToMany(cascade=CascadeType.ALL)
+//  @JoinColumn(name="user_name", nullable = true)
+@OneToMany(mappedBy = "hobby")
+  private List<Cocktail> cocktails;
+
   public List<String> getRolesAsStrings() {
     if (roleList.isEmpty()) {
       return null;
@@ -59,6 +60,8 @@ public class User implements Serializable {
     this.userName = userName;
 
     this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt());
+
+    this.cocktails = new ArrayList<>();
   }
 
 
@@ -90,4 +93,11 @@ public class User implements Serializable {
     roleList.add(userRole);
   }
 
+  public List<Cocktail> getCocktails() {
+    return cocktails;
+  }
+
+  public void addCocktails(Cocktail cocktail) {
+    this.cocktails.add(cocktail);
+  }
 }
