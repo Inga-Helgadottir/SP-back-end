@@ -52,7 +52,6 @@ public class MeasurementsIngredients implements Serializable {
         return "MeasurementsIngredients{" +
                 "id=" + id +
                 ", measurementIngredient='" + measurementIngredient + '\'' +
-                ", cocktail=" + cocktail +
                 '}';
     }
 }

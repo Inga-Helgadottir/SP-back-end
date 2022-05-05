@@ -85,8 +85,6 @@ class CocktailFacadeTest {
     void seeAllCocktails() {
         System.out.println("get all cocktails");
         List<Cocktail> cocktails = facade.seeAllCocktails();
-        System.out.println("cocktails");
-        System.out.println(cocktails);
         int actual = cocktails.size();
         int expected = 2;
         assertEquals(expected, actual);

@@ -50,8 +50,8 @@ public class Cocktail implements Serializable {
     @JoinColumn(name = "userName", referencedColumnName = "user_name", nullable = true)
     private User user;
 
-    @OneToMany(mappedBy = "cocktail", cascade = CascadeType.PERSIST)
-    private List<MeasurementsIngredients> measurementsIngredients;
+    @OneToMany(mappedBy = "cocktail", cascade = CascadeType.ALL)
+    private List<MeasurementsIngredients> measurementsIngredients = new ArrayList<>();
 
     public Cocktail() {
     }

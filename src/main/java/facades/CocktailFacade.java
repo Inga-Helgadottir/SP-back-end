@@ -6,7 +6,6 @@ import entities.MeasurementsIngredients;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CocktailFacade implements ICocktailFacade{
@@ -35,6 +34,14 @@ public class CocktailFacade implements ICocktailFacade{
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Cocktail> query = em.createQuery("SELECT c FROM Cocktail c", Cocktail.class);
+
+            for (Cocktail c: query.getResultList()) {
+                System.out.println(c.getName());
+                for (MeasurementsIngredients m: c.getMeasurementsIngredients() ) {
+                    System.out.println(m.getMeasurementIngredient());
+                }
+            }
+//            SELECT cocktail.*, MeasurementsIngredients.measurementIngredient FROM cocktail INNER JOIN MeasurementsIngredients ON cocktail.id = MeasurementsIngredients.Cocktail_id;
             List<Cocktail> cocktails = query.getResultList();
             return cocktails;
         }finally {
