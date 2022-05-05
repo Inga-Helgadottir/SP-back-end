@@ -1,5 +1,7 @@
 package rest;
 
+import entities.Cocktail;
+import entities.MeasurementsIngredients;
 import entities.User;
 import entities.Role;
 
@@ -78,11 +80,25 @@ public class EndpointTest {
             User both = new User("user_admin", "test");
             both.addRole(userRole);
             both.addRole(adminRole);
+
+            Cocktail c = new Cocktail("A1", "Alcoholic", "Cocktail glass", "Pour all ingredients into a cocktail shaker, mix and serve over ice into a chilled glass.", "https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg", "A1");
+
+            MeasurementsIngredients m = new MeasurementsIngredients("1 3/4 shot Gin");
+            MeasurementsIngredients m2 = new MeasurementsIngredients("1 shot Grand Marnier");
+            MeasurementsIngredients m3 = new MeasurementsIngredients("1/4 shot Lemmon juice");
+            MeasurementsIngredients m4 = new MeasurementsIngredients("1/8 shot Grenadine");
+            c.addMeasurementsIngredients(m);
+            c.addMeasurementsIngredients(m2);
+            c.addMeasurementsIngredients(m3);
+            c.addMeasurementsIngredients(m4);
+
             em.persist(userRole);
             em.persist(adminRole);
             em.persist(user);
             em.persist(admin);
             em.persist(both);
+
+            em.persist(c);
             //System.out.println("Saved test data to database");
             em.getTransaction().commit();
         } finally {
@@ -310,12 +326,20 @@ public class EndpointTest {
             .statusCode(200);
     }
 
-    /*TODO:
-       make endpoints and front-end for
-            seeAllCocktails
-            getCocktailById
-            seeAllMeasurementsIngredientsFromCocktailId
-            makeCocktail
+    /*
+    Author: Inga, Ole
+    Date: 05/05/2022
 
+    This function tests the endpoint that gets all the cocktail in our database
+    The function tested here is located src\main\java\rest\DemoResource
     */
+    @Test
+    void seeAllCocktailsTest() {
+        login("user_admin", "test");
+        given()
+            .contentType("application/json")
+            .when()
+            .get("info/cocktails/all").then()
+            .statusCode(200);
+    }
 }

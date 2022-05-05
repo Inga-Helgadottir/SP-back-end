@@ -33,9 +33,8 @@ public class CocktailFacade implements ICocktailFacade{
     */
     public List<Cocktail> seeAllCocktails(){
         EntityManager em = emf.createEntityManager();
-        try{
+        try {
             TypedQuery<Cocktail> query = em.createQuery("SELECT c FROM Cocktail c", Cocktail.class);
-            System.out.println(query);
             List<Cocktail> cocktails = query.getResultList();
             return cocktails;
         }finally {

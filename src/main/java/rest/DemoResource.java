@@ -3,6 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import entities.Cocktail;
 import entities.User;
 
 import java.io.BufferedReader;
@@ -20,6 +21,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
+import facades.CocktailFacade;
 import utils.EMF_Creator;
 
 /**
@@ -81,7 +83,7 @@ public class DemoResource {
     @Path("pokemon")
     public Response pokemon() {
         return Response.ok()
-                .entity(GSON.toJson(getFromAPI()))
+                .entity(GSON.toJson(getNoUrl("https://pokeapi.co/api/v2/pokemon?limit=10&offset=0")))
                 .build();
     }
 
@@ -90,7 +92,7 @@ public class DemoResource {
     @Path("swapi")
     public Response swapi() {
         return Response.ok()
-                .entity(GSON.toJson(getFromAPI2()))
+                .entity(GSON.toJson(getNoUrl("https://swapi.dev/api/people/1")))
                 .build();
     }
 
@@ -159,6 +161,28 @@ public class DemoResource {
     }
 
     /*
+    Authors: Inga, Ole
+    Date: 05/05/2022
+
+    This function makes an endpoint for getting all the cocktails in our database
+    */
+    @GET
+    @Path("cocktails/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response seeAllCocktails() throws Exception {
+        CocktailFacade cf = new CocktailFacade();
+        cf.getCocktailFacade(EMF);
+        System.out.println("---------------------");
+        System.out.println(cf.seeAllCocktails());
+        List<Cocktail> cocktails = cf.seeAllCocktails();
+//        return GSON.toJson(cocktails);
+//        return cocktails.toString();
+        return Response.ok()
+                .entity(cocktails.toString())
+                .build();
+    }
+
+    /*
     Authors: Inga, Maria, Jonas
     Date: 03/05/2022
 
@@ -191,53 +215,12 @@ public class DemoResource {
         }
     }
 
-    public JsonObject getFromAPI() {
-        try {
-            URL url = new URL("https://pokeapi.co/api/v2/pokemon?limit=10&offset=0");//your url i.e fetch data from .
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setRequestProperty("User-Agent", "server");
-            conn.setRequestProperty("Accept", "application/json;charset=UTF-8");
-            if (conn.getResponseCode() != 200) {
-                throw new RuntimeException("Failed : HTTP Error code : "
-                        + conn.getResponseCode());
-            }
-            InputStreamReader in = new InputStreamReader(conn.getInputStream());
-            BufferedReader br = new BufferedReader(in);
-            String output = br.readLine();
-            JsonObject convertedObject = new Gson().fromJson(output, JsonObject.class);
-            conn.disconnect();
-            return convertedObject;
+    /*TODO:
+       make endpoints and front-end for
+            seeAllCocktails
+            getCocktailById
+            seeAllMeasurementsIngredientsFromCocktailId
+            makeCocktail
 
-        } catch (Exception e) {
-            System.out.println("Exception in NetClientGet:- " + e);
-            JsonObject error = new Gson().fromJson(new Gson().toJson(e), JsonObject.class);
-            return error;
-        }
-    }
-
-    public JsonObject getFromAPI2() {
-        try {
-            URL url = new URL("https://swapi.dev/api/people/1");//your url i.e fetch data from .
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setRequestProperty("User-Agent", "server");
-            conn.setRequestProperty("Accept", "application/json;charset=UTF-8");
-            if (conn.getResponseCode() != 200) {
-                throw new RuntimeException("Failed : HTTP Error code : "
-                        + conn.getResponseCode());
-            }
-            InputStreamReader in = new InputStreamReader(conn.getInputStream());
-            BufferedReader br = new BufferedReader(in);
-            String output = br.readLine();
-            JsonObject convertedObject = new Gson().fromJson(output, JsonObject.class);
-            conn.disconnect();
-            return convertedObject;
-
-        } catch (Exception e) {
-            System.out.println("Exception in NetClientGet:- " + e);
-            JsonObject error = new Gson().fromJson(new Gson().toJson(e), JsonObject.class);
-            return error;
-        }
-    }
+    */
 }
