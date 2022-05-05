@@ -168,8 +168,8 @@ public class DemoResource {
     */
     @GET
     @Path("cocktails/all")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response seeAllCocktails() throws Exception {
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Cocktail> seeAllCocktails() throws Exception {
         CocktailFacade cf = new CocktailFacade();
         cf.getCocktailFacade(EMF);
         System.out.println("---------------------");
@@ -177,9 +177,16 @@ public class DemoResource {
         List<Cocktail> cocktails = cf.seeAllCocktails();
 //        return GSON.toJson(cocktails);
 //        return cocktails.toString();
-        return Response.ok()
-                .entity(cocktails.toString())
-                .build();
+//        return Response.ok()
+//                .entity(cocktails)
+//                .build();
+//        return Response.ok()
+//                .entity(GSON.toJson(cocktails))
+//                .build();
+//        return Response.ok()
+//                .entity(GSON.toJson(cf.seeAllCocktails()))
+//                .build();
+        return cocktails;
     }
 
     /*
