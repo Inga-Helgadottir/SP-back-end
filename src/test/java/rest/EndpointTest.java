@@ -288,7 +288,7 @@ public class EndpointTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("info/cocktails/letter/margarita").then()
+                .get("info/cocktails/name/margarita").then()
                 .statusCode(200);
     }
 
