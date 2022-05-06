@@ -193,7 +193,7 @@ public class DemoResource {
     }
 
     /*
-    Authors: Inga
+    Authors: Inga, Ole, Jonas, Maria
     Date: 06/05/2022
 
     This function makes the endpoint for add a cocktail
