@@ -14,7 +14,7 @@ public interface ICocktailFacade {
 
     List<CocktailDTO> seeAllCocktails();
         List<MeasurementsIngredients> seeAllMeasurementsIngredientsFromCocktailId(int cocktailId);
-        Cocktail getCocktailById(int id);
+        CocktailDTO getCocktailById(int id);
 //        Cocktail makeCocktail(Cocktail newCocktail, List<MeasurementsIngredients> newM);
-        Cocktail makeCocktail(Cocktail newCocktail);
+        CocktailDTO makeCocktail(Cocktail newCocktail);
 }

@@ -171,17 +171,6 @@ public class DemoResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response seeAllCocktails() {
         System.out.println("---------------------");
-        System.out.println(cf.seeAllCocktails());
-//        List<Cocktail> cocktails = cf.seeAllCocktails();
-//        return GSON.toJson(cocktails);
-//        return cocktails.toString();
-//        return Response.ok()
-//                .entity(cocktails)
-//                .build();
-//        return Response.ok()
-//                .entity(GSON.toJson(cocktails))
-//                .build();
-//        return cocktails;
         return Response.ok()
                 .entity(GSON.toJson(cf.seeAllCocktails()))
                 .build();
@@ -210,7 +199,7 @@ public class DemoResource {
     This function makes the endpoint for add a cocktail
     it uses the makeCocktail function in src\main\java\facades\CocktailFacade
     */
-    @GET
+    @POST
     @Path("cocktails/add")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -253,12 +242,4 @@ public class DemoResource {
             return error;
         }
     }
-
-    /*TODO:
-       make endpoints and front-end for
-            seeAllCocktails
-            getCocktailById
-            makeCocktail
-
-    */
 }

@@ -19,15 +19,15 @@ public class CocktailDTO {
     private String image;
     private String imageAlt;
     private User user;
+    private List<MeasurementsIngredients> measurementsIngredients = new ArrayList<>();
 
-    public CocktailDTO(String name, String alcoholic, String glass, String instructions, String image, String imageAlt, User user) {
+    public CocktailDTO(String name, String alcoholic, String glass, String instructions, String image, String imageAlt) {
         this.name = name;
         this.alcoholic = alcoholic;
         this.glass = glass;
         this.instructions = instructions;
         this.image = image;
         this.imageAlt = imageAlt;
-        this.user = user;
     }
 
     public static List<CocktailDTO> getDtos(List<Cocktail> c){
@@ -46,6 +46,14 @@ public class CocktailDTO {
             this.instructions = c.getInstructions();
             this.name = c.getName();
         }
+    }
+
+    public List<MeasurementsIngredients> getMeasurementsIngredients() {
+        return measurementsIngredients;
+    }
+
+    public void addMeasurementsIngredients(MeasurementsIngredients measurementsIngredients) {
+        this.measurementsIngredients.add(measurementsIngredients);
     }
 
     public int getId() {

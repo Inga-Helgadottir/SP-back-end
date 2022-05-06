@@ -118,7 +118,7 @@ class CocktailFacadeTest {
     @Test
     void getCocktailById(){
         System.out.println("get cocktail by id");
-        Cocktail c = facade.getCocktailById(1);
+        CocktailDTO c = facade.getCocktailById(1);
         int actualId = c.getId();
         String actualName = c.getName();
         int expectedId = 1;
@@ -154,7 +154,7 @@ class CocktailFacadeTest {
         c.addMeasurementsIngredients(m3);
         c.addMeasurementsIngredients(m4);
 
-        Cocktail cocktail = facade.makeCocktail(c);
+        CocktailDTO cocktail = facade.makeCocktail(c);
         int actual = cocktail.getId();
         int expected = 3;
         assertEquals(expected, actual);

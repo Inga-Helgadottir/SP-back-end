@@ -1,5 +1,8 @@
 package rest;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import dtos.CocktailDTO;
 import entities.Cocktail;
 import entities.MeasurementsIngredients;
 import entities.User;
@@ -39,6 +42,7 @@ public class EndpointTest {
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     
     static HttpServer startServer() {
         ResourceConfig rc = ResourceConfig.forApplication(new ApplicationConfig());
@@ -343,10 +347,10 @@ public class EndpointTest {
     void seeAllCocktailsTest() {
         login("user_admin", "test");
         given()
-                .contentType("application/json")
-                .when()
-                .get("info/cocktails/all").then()
-                .statusCode(200);
+            .contentType("application/json")
+            .when()
+            .get("info/cocktails/all").then()
+            .statusCode(200);
     }
 
     /*
@@ -373,31 +377,26 @@ public class EndpointTest {
     @Test
     void makeCocktailTest() {
         login("user_admin", "test");
+        CocktailDTO c = new CocktailDTO("new", "Alcoholic", "Cocktail glass", "put stuff in glass.", "https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg", "new");
+        MeasurementsIngredients m = new MeasurementsIngredients("1 3/4 shot Gin");
+        MeasurementsIngredients m2 = new MeasurementsIngredients("1 shot Grand Marnier");
+        MeasurementsIngredients m3 = new MeasurementsIngredients("1/4 shot Lemmon juice");
+        MeasurementsIngredients m4 = new MeasurementsIngredients("1/8 shot Grenadine");
+        c.addMeasurementsIngredients(m);
+        c.addMeasurementsIngredients(m2);
+        c.addMeasurementsIngredients(m3);
+        c.addMeasurementsIngredients(m4);
+        String requestBody = GSON.toJson(c);
+        System.out.println(requestBody);
         given()
-            .contentType("application/json")
-            .when()
-            .get("info/cocktails/add").then()
-            .statusCode(200);
+                .header("Content-type", ContentType.JSON)
+                .and()
+                .body(requestBody)
+                .when()
+                .post("info/cocktails/add")
+                .then()
+                .assertThat()
+                .body("name", equalTo("new"))
+                .body("alcoholic", equalTo("Alcoholic"));
     }
-
-//    @Test
-//    void addUser() {
-//        System.out.println("Testing add User");
-//        EntityManager em = emf.createEntityManager();
-//        Person per = new Person("Elliot", "Mareks", "12345678", "myEmail@lala.com");
-//        per.setHobby(em.find(Hobby.class, 1));
-//        per.setCityinfo(em.find(Cityinfo.class, 1));
-//        String requestBody = GSON.toJson(per);
-//        given()
-//                .header("Content-type", ContentType.JSON)
-//                .and()
-//                .body(requestBody)
-//                .when()
-//                .post("/users/newPerson")
-//                .then()
-//                .assertThat()
-//                .statusCode(200)
-//                .body("firstName", equalTo("Elliot"))
-//                .body("lastName", equalTo("Mareks"));
-//    }
 }

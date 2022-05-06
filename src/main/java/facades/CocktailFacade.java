@@ -76,11 +76,11 @@ public class CocktailFacade implements ICocktailFacade{
     the variable is a cocktail id from the database
     */
     @Override
-    public Cocktail getCocktailById(int id) {
+    public CocktailDTO getCocktailById(int id) {
         EntityManager em = emf.createEntityManager();
         try {
             Cocktail c = em.find(Cocktail.class, id);
-            return c;
+            return new CocktailDTO(c);
         }finally {
             em.close();
         }
@@ -95,7 +95,7 @@ public class CocktailFacade implements ICocktailFacade{
     */
 
     @Override
-    public Cocktail makeCocktail(Cocktail newCocktail) {
+    public CocktailDTO makeCocktail(Cocktail newCocktail) {
         EntityManager em = emf.createEntityManager();
         try{
             Cocktail c = new Cocktail(newCocktail.getName(), newCocktail.getAlcoholic(), newCocktail.getGlass(), newCocktail.getInstructions(), newCocktail.getImage(), newCocktail.getImageAlt());
@@ -106,7 +106,7 @@ public class CocktailFacade implements ICocktailFacade{
             em.getTransaction().begin();
             em.persist(c);
             em.getTransaction().commit();
-            return c;
+            return new CocktailDTO(c);
         }finally {
             em.close();
         }
