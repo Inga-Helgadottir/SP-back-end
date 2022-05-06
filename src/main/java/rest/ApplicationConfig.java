@@ -1,5 +1,7 @@
 package rest;
 
+import entities.Cocktail;
+
 import java.util.Set;
 import javax.ws.rs.core.Application;
 

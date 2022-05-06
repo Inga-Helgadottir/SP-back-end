@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.CocktailDTO;
 import entities.Cocktail;
 import entities.MeasurementsIngredients;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,6 +13,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NamedQuery;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -84,7 +86,7 @@ class CocktailFacadeTest {
     @Test
     void seeAllCocktails() {
         System.out.println("get all cocktails");
-        List<Cocktail> cocktails = facade.seeAllCocktails();
+        List<CocktailDTO> cocktails = facade.seeAllCocktails();
         int actual = cocktails.size();
         int expected = 2;
         assertEquals(expected, actual);
@@ -142,13 +144,17 @@ class CocktailFacadeTest {
         MeasurementsIngredients m3 = new MeasurementsIngredients("1 Lime juice");
         MeasurementsIngredients m4 = new MeasurementsIngredients("Salt");
 
-        List<MeasurementsIngredients> measurementsIngredientsList = new ArrayList<>();
-        measurementsIngredientsList.add(m);
-        measurementsIngredientsList.add(m2);
-        measurementsIngredientsList.add(m3);
-        measurementsIngredientsList.add(m4);
+//        List<MeasurementsIngredients> measurementsIngredientsList = new ArrayList<>();
+//        measurementsIngredientsList.add(m);
+//        measurementsIngredientsList.add(m2);
+//        measurementsIngredientsList.add(m3);
+//        measurementsIngredientsList.add(m4);
+        c.addMeasurementsIngredients(m);
+        c.addMeasurementsIngredients(m2);
+        c.addMeasurementsIngredients(m3);
+        c.addMeasurementsIngredients(m4);
 
-        Cocktail cocktail = facade.makeCocktail(c, measurementsIngredientsList);
+        Cocktail cocktail = facade.makeCocktail(c);
         int actual = cocktail.getId();
         int expected = 3;
         assertEquals(expected, actual);

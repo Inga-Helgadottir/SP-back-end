@@ -12,6 +12,12 @@ import io.restassured.parsing.Parser;
 import java.net.URI;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -337,9 +343,61 @@ public class EndpointTest {
     void seeAllCocktailsTest() {
         login("user_admin", "test");
         given()
+                .contentType("application/json")
+                .when()
+                .get("info/cocktails/all").then()
+                .statusCode(200);
+    }
+
+    /*
+    Authors: Inga, Maria, Jonas
+    Date: 06/05/2022
+
+    This function tests the endpoint for get a cocktail by id
+    */
+    @Test
+    void getCocktailByIdTest() {
+        login("user_admin", "test");
+        given()
             .contentType("application/json")
             .when()
-            .get("info/cocktails/all").then()
+            .get("info/cocktails/1").then()
             .statusCode(200);
     }
+    /*
+    Authors: Inga
+    Date: 06/05/2022
+
+    This function tests the endpoint for get a cocktail by id
+    */
+    @Test
+    void makeCocktailTest() {
+        login("user_admin", "test");
+        given()
+            .contentType("application/json")
+            .when()
+            .get("info/cocktails/add").then()
+            .statusCode(200);
+    }
+
+//    @Test
+//    void addUser() {
+//        System.out.println("Testing add User");
+//        EntityManager em = emf.createEntityManager();
+//        Person per = new Person("Elliot", "Mareks", "12345678", "myEmail@lala.com");
+//        per.setHobby(em.find(Hobby.class, 1));
+//        per.setCityinfo(em.find(Cityinfo.class, 1));
+//        String requestBody = GSON.toJson(per);
+//        given()
+//                .header("Content-type", ContentType.JSON)
+//                .and()
+//                .body(requestBody)
+//                .when()
+//                .post("/users/newPerson")
+//                .then()
+//                .assertThat()
+//                .statusCode(200)
+//                .body("firstName", equalTo("Elliot"))
+//                .body("lastName", equalTo("Mareks"));
+//    }
 }

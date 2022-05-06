@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.CocktailDTO;
 import entities.Cocktail;
 import entities.MeasurementsIngredients;
 
@@ -11,9 +12,9 @@ public interface ICocktailFacade {
         return null;
     }
 
-    List<Cocktail> seeAllCocktails();
+    List<CocktailDTO> seeAllCocktails();
         List<MeasurementsIngredients> seeAllMeasurementsIngredientsFromCocktailId(int cocktailId);
         Cocktail getCocktailById(int id);
-        Cocktail makeCocktail(Cocktail newCocktail, List<MeasurementsIngredients> newM);
-
+//        Cocktail makeCocktail(Cocktail newCocktail, List<MeasurementsIngredients> newM);
+        Cocktail makeCocktail(Cocktail newCocktail);
 }

@@ -15,11 +15,8 @@ import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import javax.ws.rs.Produces;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 
 import facades.CocktailFacade;
 import utils.EMF_Creator;
@@ -32,6 +29,8 @@ public class DemoResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final CocktailFacade cf = CocktailFacade.getCocktailFacade(EMF);
+
     @Context
     private UriInfo context;
 
@@ -165,16 +164,15 @@ public class DemoResource {
     Date: 05/05/2022
 
     This function makes an endpoint for getting all the cocktails in our database
+    it uses the seeAllCocktails function in src\main\java\facades\CocktailFacade
     */
     @GET
-    @Path("cocktails/all")
+    @Path("/cocktails/all")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Cocktail> seeAllCocktails() throws Exception {
-        CocktailFacade cf = new CocktailFacade();
-        cf.getCocktailFacade(EMF);
+    public Response seeAllCocktails() {
         System.out.println("---------------------");
         System.out.println(cf.seeAllCocktails());
-        List<Cocktail> cocktails = cf.seeAllCocktails();
+//        List<Cocktail> cocktails = cf.seeAllCocktails();
 //        return GSON.toJson(cocktails);
 //        return cocktails.toString();
 //        return Response.ok()
@@ -183,10 +181,44 @@ public class DemoResource {
 //        return Response.ok()
 //                .entity(GSON.toJson(cocktails))
 //                .build();
-//        return Response.ok()
-//                .entity(GSON.toJson(cf.seeAllCocktails()))
-//                .build();
-        return cocktails;
+//        return cocktails;
+        return Response.ok()
+                .entity(GSON.toJson(cf.seeAllCocktails()))
+                .build();
+    }
+
+    /*
+    Authors: Inga, Maria, Jonas
+    Date: 06/05/2022
+
+    This function makes the endpoint for get a cocktail by id
+    it uses the getCocktailById function in src\main\java\facades\CocktailFacade
+    */
+    @GET
+    @Path("cocktails/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCocktailById(@PathParam("id") int id) {
+        return Response.ok()
+                .entity(GSON.toJson(cf.getCocktailById(id)))
+                .build();
+    }
+
+    /*
+    Authors: Inga
+    Date: 06/05/2022
+
+    This function makes the endpoint for add a cocktail
+    it uses the makeCocktail function in src\main\java\facades\CocktailFacade
+    */
+    @GET
+    @Path("cocktails/add")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response makeCocktail(String jsonContext) {
+        Cocktail c = GSON.fromJson(jsonContext, Cocktail.class);
+        return Response.ok()
+                .entity(GSON.toJson(cf.makeCocktail(c)))
+                .build();
     }
 
     /*
@@ -226,7 +258,6 @@ public class DemoResource {
        make endpoints and front-end for
             seeAllCocktails
             getCocktailById
-            seeAllMeasurementsIngredientsFromCocktailId
             makeCocktail
 
     */

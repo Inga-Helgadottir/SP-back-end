@@ -19,7 +19,6 @@ public class MeasurementsIngredients implements Serializable {
     @Column(name = "measurementIngredient")
     private String measurementIngredient;
 
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Cocktail_id", referencedColumnName = "id", nullable = false)
     private Cocktail cocktail;
@@ -29,6 +28,14 @@ public class MeasurementsIngredients implements Serializable {
 
     public MeasurementsIngredients(String measurementIngredient) {
         this.measurementIngredient = measurementIngredient;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getMeasurementIngredient() {

@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.CocktailDTO;
 import entities.Cocktail;
 import entities.MeasurementsIngredients;
 
@@ -30,7 +31,7 @@ public class CocktailFacade implements ICocktailFacade{
 
     this function gets all the cocktails in the database
     */
-    public List<Cocktail> seeAllCocktails(){
+    public List<CocktailDTO> seeAllCocktails(){
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Cocktail> query = em.createQuery("SELECT c FROM Cocktail c", Cocktail.class);
@@ -41,9 +42,8 @@ public class CocktailFacade implements ICocktailFacade{
                     System.out.println(m.getMeasurementIngredient());
                 }
             }
-//            SELECT cocktail.*, MeasurementsIngredients.measurementIngredient FROM cocktail INNER JOIN MeasurementsIngredients ON cocktail.id = MeasurementsIngredients.Cocktail_id;
             List<Cocktail> cocktails = query.getResultList();
-            return cocktails;
+            return CocktailDTO.getDtos(cocktails);
         }finally {
             em.close();
         }
@@ -93,13 +93,14 @@ public class CocktailFacade implements ICocktailFacade{
     this function makes a new cocktail and adds it to the database
     the variables is a cocktail and MeasurementsIngredients
     */
+
     @Override
-    public Cocktail makeCocktail(Cocktail newCocktail, List<MeasurementsIngredients> newM) {
+    public Cocktail makeCocktail(Cocktail newCocktail) {
         EntityManager em = emf.createEntityManager();
         try{
             Cocktail c = new Cocktail(newCocktail.getName(), newCocktail.getAlcoholic(), newCocktail.getGlass(), newCocktail.getInstructions(), newCocktail.getImage(), newCocktail.getImageAlt());
-            for (int i = 0; i < newM.size(); i++) {
-                MeasurementsIngredients m = new MeasurementsIngredients(newM.get(i).getMeasurementIngredient());
+            for (int i = 0; i < newCocktail.getMeasurementsIngredients().size(); i++) {
+                MeasurementsIngredients m = new MeasurementsIngredients(newCocktail.getMeasurementsIngredients().get(i).getMeasurementIngredient());
                 m.setCocktail(c);
             }
             em.getTransaction().begin();
@@ -110,4 +111,21 @@ public class CocktailFacade implements ICocktailFacade{
             em.close();
         }
     }
+//    @Override
+//    public Cocktail makeCocktail(Cocktail newCocktail, List<MeasurementsIngredients> newM) {
+//        EntityManager em = emf.createEntityManager();
+//        try{
+//            Cocktail c = new Cocktail(newCocktail.getName(), newCocktail.getAlcoholic(), newCocktail.getGlass(), newCocktail.getInstructions(), newCocktail.getImage(), newCocktail.getImageAlt());
+//            for (int i = 0; i < newM.size(); i++) {
+//                MeasurementsIngredients m = new MeasurementsIngredients(newM.get(i).getMeasurementIngredient());
+//                m.setCocktail(c);
+//            }
+//            em.getTransaction().begin();
+//            em.persist(c);
+//            em.getTransaction().commit();
+//            return c;
+//        }finally {
+//            em.close();
+//        }
+//    }
 }
