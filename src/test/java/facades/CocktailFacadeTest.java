@@ -96,22 +96,6 @@ class CocktailFacadeTest {
     Authors: Inga, Maria
     Date: 04/05/2022
 
-    this function tests the function that gets all the cocktails in the database
-    we are testing the function seeAllCocktails in src\main\java\facades\CocktailFacade
-    */
-    @Test
-    void seeAllMeasurementsIngredientsFromCocktailId() {
-        System.out.println("get all measurements ingredients from cocktail id");
-        List<MeasurementsIngredients> measurementsIngredients = facade.seeAllMeasurementsIngredientsFromCocktailId(1);
-        int actual = measurementsIngredients.size();
-        int expected = 4;
-        assertEquals(expected, actual);
-    }
-
-    /*
-    Authors: Inga, Maria
-    Date: 04/05/2022
-
     this function tests the function that gets a cocktail by the id in the database
     we are testing the function getCocktailById in src\main\java\facades\CocktailFacade
     */

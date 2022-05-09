@@ -13,8 +13,8 @@ public interface ICocktailFacade {
     }
 
     List<CocktailDTO> seeAllCocktails();
-        List<MeasurementsIngredients> seeAllMeasurementsIngredientsFromCocktailId(int cocktailId);
-        CocktailDTO getCocktailById(int id);
-//        Cocktail makeCocktail(Cocktail newCocktail, List<MeasurementsIngredients> newM);
-        CocktailDTO makeCocktail(Cocktail newCocktail);
+    CocktailDTO getCocktailById(int id);
+    CocktailDTO makeCocktail(Cocktail newCocktail);
+    List<CocktailDTO> sortCocktailRecipes(List<CocktailDTO> cocktailList);
+    int calcAlcoholUnits(List<CocktailDTO> cocktailList, String gender, int height, int weight);
 }

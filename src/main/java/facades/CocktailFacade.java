@@ -53,25 +53,6 @@ public class CocktailFacade implements ICocktailFacade{
     Authors: Inga, Maria
     Date: 04/05/2022
 
-    this function gets all the measurements ingredients of a cocktail in the database
-    the variable is a cocktail id from the database
-    */
-    public List<MeasurementsIngredients> seeAllMeasurementsIngredientsFromCocktailId(int cocktailId){
-        EntityManager em = emf.createEntityManager();
-        try{
-            TypedQuery<MeasurementsIngredients> query = em.createQuery("SELECT m FROM MeasurementsIngredients m WHERE m.cocktail.id = :id", MeasurementsIngredients.class);
-            query.setParameter("id", cocktailId);
-            List<MeasurementsIngredients> measurementsIngredients = query.getResultList();
-            return measurementsIngredients;
-        }finally {
-            em.close();
-        }
-    }
-
-    /*
-    Authors: Inga, Maria
-    Date: 04/05/2022
-
     this gets a cocktail by the id in the database
     the variable is a cocktail id from the database
     */
@@ -109,5 +90,15 @@ public class CocktailFacade implements ICocktailFacade{
         }finally {
             em.close();
         }
+    }
+
+    @Override
+    public List<CocktailDTO> sortCocktailRecipes(List<CocktailDTO> cocktailList) {
+        return null;
+    }
+
+    @Override
+    public int calcAlcoholUnits(List<CocktailDTO> cocktailList, String gender, int height, int weight) {
+        return 0;
     }
 }
