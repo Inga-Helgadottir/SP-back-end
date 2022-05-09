@@ -93,7 +93,6 @@ public class CocktailFacade implements ICocktailFacade{
     this function makes a new cocktail and adds it to the database
     the variables is a cocktail and MeasurementsIngredients
     */
-
     @Override
     public CocktailDTO makeCocktail(Cocktail newCocktail) {
         EntityManager em = emf.createEntityManager();
@@ -111,21 +110,4 @@ public class CocktailFacade implements ICocktailFacade{
             em.close();
         }
     }
-//    @Override
-//    public Cocktail makeCocktail(Cocktail newCocktail, List<MeasurementsIngredients> newM) {
-//        EntityManager em = emf.createEntityManager();
-//        try{
-//            Cocktail c = new Cocktail(newCocktail.getName(), newCocktail.getAlcoholic(), newCocktail.getGlass(), newCocktail.getInstructions(), newCocktail.getImage(), newCocktail.getImageAlt());
-//            for (int i = 0; i < newM.size(); i++) {
-//                MeasurementsIngredients m = new MeasurementsIngredients(newM.get(i).getMeasurementIngredient());
-//                m.setCocktail(c);
-//            }
-//            em.getTransaction().begin();
-//            em.persist(c);
-//            em.getTransaction().commit();
-//            return c;
-//        }finally {
-//            em.close();
-//        }
-//    }
 }
