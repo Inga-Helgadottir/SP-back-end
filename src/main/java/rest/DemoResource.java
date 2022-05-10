@@ -96,6 +96,22 @@ public class DemoResource {
     }
 
     /*
+   Authors: Inga, Ole
+   Date: 10/05/2022
+
+   This function makes the endpoint for getting a cocktail by its id from the cocktail API
+   it uses tha function getNoUrl that takes an endpoint as a parameter and gets from that endpoint
+   */
+    @GET
+    @Path("cocktails/API/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response cocktailsByIdAPI(@PathParam("id") int id) {
+        return Response.ok()
+                .entity(GSON.toJson(getNoUrl("https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i="+id)))
+                .build();
+    }
+
+    /*
     Authors: Inga, Maria, Jonas
     Date: 03/05/2022
 

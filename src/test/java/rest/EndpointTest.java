@@ -338,6 +338,23 @@ public class EndpointTest {
 
     /*
     Author: Inga, Ole
+    Date: 10/05/2022
+
+   This function tests the endpoint for getting a cocktail by its id from the cocktail API
+    The function tested here is located src\main\java\rest\DemoResource.java
+    */
+    @Test
+    void cocktailsByIdAPITest() {
+        login("user_admin", "test");
+        given()
+            .contentType("application/json")
+            .when()
+            .get("info/cocktails/API/11007").then()
+            .statusCode(200);
+    }
+
+    /*
+    Author: Inga, Ole
     Date: 05/05/2022
 
     This function tests the endpoint that gets all the cocktail in our database
