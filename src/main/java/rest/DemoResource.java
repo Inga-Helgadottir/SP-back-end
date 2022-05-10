@@ -204,6 +204,7 @@ public class DemoResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response makeCocktail(String jsonContext) {
+        System.out.println(jsonContext);
         Cocktail c = GSON.fromJson(jsonContext, Cocktail.class);
         return Response.ok()
                 .entity(GSON.toJson(cf.makeCocktail(c)))

@@ -81,7 +81,7 @@ public class CocktailFacade implements ICocktailFacade{
             Cocktail c = new Cocktail(newCocktail.getName(), newCocktail.getAlcoholic(), newCocktail.getGlass(), newCocktail.getInstructions(), newCocktail.getImage(), newCocktail.getImageAlt());
             for (int i = 0; i < newCocktail.getMeasurementsIngredients().size(); i++) {
                 MeasurementsIngredients m = new MeasurementsIngredients(newCocktail.getMeasurementsIngredients().get(i).getMeasurementIngredient());
-                m.setCocktail(c);
+                c.addMeasurementsIngredients(m);
             }
             em.getTransaction().begin();
             em.persist(c);

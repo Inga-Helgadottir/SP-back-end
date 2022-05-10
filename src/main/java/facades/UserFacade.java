@@ -5,10 +5,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import security.errorhandling.AuthenticationException;
 
+import java.util.List;
+
 /**
  * @author lam@cphbusiness.dk
  */
-public class UserFacade {
+public class UserFacade implements IUserFacade{
 
     private static EntityManagerFactory emf;
     private static UserFacade instance;
@@ -52,6 +54,21 @@ public class UserFacade {
             em.close();
         }
         return user;
+    }
+
+    @Override
+    public List<User> seeAllUsers() {
+        return null;
+    }
+
+    @Override
+    public User signUp(String username, String password) {
+        return null;
+    }
+
+    @Override
+    public User changeUserRole(User user, String Role) {
+        return null;
     }
 
 }
