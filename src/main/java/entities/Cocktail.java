@@ -63,7 +63,6 @@ public class Cocktail implements Serializable {
         this.instructions = instructions;
         this.image = image;
         this.imageAlt = imageAlt;
-        this.measurementsIngredients = new ArrayList<>();
     }
 
     public Cocktail(String name, String alcoholic, String glass, String instructions, String image, String imageAlt, User user) {
@@ -74,7 +73,6 @@ public class Cocktail implements Serializable {
         this.image = image;
         this.imageAlt = imageAlt;
         this.user = user;
-        this.measurementsIngredients = new ArrayList<>();
     }
 
     public int getId() {
@@ -95,6 +93,12 @@ public class Cocktail implements Serializable {
 
     public List<MeasurementsIngredients> getMeasurementsIngredients() {
         return measurementsIngredients;
+    }
+
+    public void setMeasurementsIngredients(List<MeasurementsIngredients> measurementsIngredients) {
+        for (MeasurementsIngredients m : measurementsIngredients){
+            addMeasurementsIngredients(m);
+        }
     }
 
     public void addMeasurementsIngredients(MeasurementsIngredients measurementsIngredients) {
@@ -161,7 +165,7 @@ public class Cocktail implements Serializable {
                 ", image='" + image + '\'' +
                 ", imageAlt='" + imageAlt + '\'' +
                 ", user=" + user +
-                ", measurementsIngredients=" + measurementsIngredients +
+                ", measurementsIngredients=" + measurementsIngredients.toString() +
                 '}';
     }
 }

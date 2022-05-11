@@ -3,6 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.CocktailDTO;
+import dtos.MeasurementsIngredientsDTO;
 import entities.Cocktail;
 import entities.MeasurementsIngredients;
 import entities.User;
@@ -395,10 +396,10 @@ public class EndpointTest {
     void makeCocktailTest() {
         login("user_admin", "test");
         CocktailDTO c = new CocktailDTO("new", "Alcoholic", "Cocktail glass", "put stuff in glass.", "https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg", "new");
-        MeasurementsIngredients m = new MeasurementsIngredients("1 3/4 shot Gin");
-        MeasurementsIngredients m2 = new MeasurementsIngredients("1 shot Grand Marnier");
-        MeasurementsIngredients m3 = new MeasurementsIngredients("1/4 shot Lemmon juice");
-        MeasurementsIngredients m4 = new MeasurementsIngredients("1/8 shot Grenadine");
+        MeasurementsIngredientsDTO m = new MeasurementsIngredientsDTO(new MeasurementsIngredients("1 3/4 shot Gin"));
+        MeasurementsIngredientsDTO m2 = new MeasurementsIngredientsDTO(new MeasurementsIngredients("1 shot Grand Marnier"));
+        MeasurementsIngredientsDTO m3 = new MeasurementsIngredientsDTO(new MeasurementsIngredients("1/4 shot Lemmon juice"));
+        MeasurementsIngredientsDTO m4 = new MeasurementsIngredientsDTO(new MeasurementsIngredients("1/8 shot Grenadine"));
         c.addMeasurementsIngredients(m);
         c.addMeasurementsIngredients(m2);
         c.addMeasurementsIngredients(m3);

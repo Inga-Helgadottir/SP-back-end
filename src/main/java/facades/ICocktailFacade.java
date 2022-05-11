@@ -2,7 +2,6 @@ package facades;
 
 import dtos.CocktailDTO;
 import entities.Cocktail;
-import entities.MeasurementsIngredients;
 
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
@@ -12,7 +11,7 @@ public interface ICocktailFacade {
         return null;
     }
 
-    List<CocktailDTO> seeAllCocktails();
+//    static List<Cocktail> seeAllCocktails();
     CocktailDTO getCocktailById(int id);
     CocktailDTO makeCocktail(Cocktail newCocktail);
     List<CocktailDTO> sortCocktailRecipes(List<CocktailDTO> cocktailList);

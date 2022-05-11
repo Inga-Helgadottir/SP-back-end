@@ -19,7 +19,7 @@ public class CocktailDTO {
     private String image;
     private String imageAlt;
     private User user;
-    private List<MeasurementsIngredients> measurementsIngredients = new ArrayList<>();
+    private List<MeasurementsIngredientsDTO> measurementsIngredients = new ArrayList<>();
 
     public CocktailDTO(String name, String alcoholic, String glass, String instructions, String image, String imageAlt) {
         this.name = name;
@@ -45,15 +45,17 @@ public class CocktailDTO {
             this.imageAlt = c.getImageAlt();
             this.instructions = c.getInstructions();
             this.name = c.getName();
+            this.measurementsIngredients = MeasurementsIngredientsDTO.getDtos(c.getMeasurementsIngredients());
         }
     }
 
-    public List<MeasurementsIngredients> getMeasurementsIngredients() {
+    public List<MeasurementsIngredientsDTO> getMeasurementsIngredients() {
         return measurementsIngredients;
     }
 
-    public void addMeasurementsIngredients(MeasurementsIngredients measurementsIngredients) {
+    public void addMeasurementsIngredients(MeasurementsIngredientsDTO measurementsIngredients) {
         this.measurementsIngredients.add(measurementsIngredients);
+
     }
 
     public int getId() {

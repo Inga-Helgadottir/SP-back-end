@@ -6,7 +6,9 @@ import entities.MeasurementsIngredients;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CocktailFacade implements ICocktailFacade{
@@ -31,22 +33,29 @@ public class CocktailFacade implements ICocktailFacade{
 
     this function gets all the cocktails in the database
     */
-    public List<CocktailDTO> seeAllCocktails(){
+    public static List<CocktailDTO> seeAllCocktails(){
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Cocktail> query = em.createQuery("SELECT c FROM Cocktail c", Cocktail.class);
+            List<Cocktail> cocktails = query.getResultList();
 
-            for (Cocktail c: query.getResultList()) {
-                System.out.println(c.getName());
+            for (Cocktail c: cocktails) {
                 for (MeasurementsIngredients m: c.getMeasurementsIngredients() ) {
                     System.out.println(m.getMeasurementIngredient());
                 }
             }
-            List<Cocktail> cocktails = query.getResultList();
-            return CocktailDTO.getDtos(cocktails);
+
+            List<CocktailDTO> cdtos = CocktailDTO.getDtos(cocktails);
+            return cdtos;
         }finally {
             em.close();
         }
+    }
+
+    public static void main(String[] args){
+        EntityManagerFactory EMF = Persistence.createEntityManagerFactory("pu");
+        getCocktailFacade(EMF);
+        seeAllCocktails();
     }
 
     /*
