@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
+@NamedQuery(name = "roles.deleteAllRows", query = "DELETE from Role r")
 @Table(name = "roles")
 public class Role implements Serializable {
 

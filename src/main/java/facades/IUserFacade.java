@@ -14,6 +14,6 @@ public interface IUserFacade {
     User getVeryfiedUser(String username, String password) throws AuthenticationException;
     User findUserByName(String username);
     List<User> seeAllUsers();
-    User signUp(String username, String password);
     User changeUserRole(User user, String Role);
+    User signUp(String userName, String password);
 }

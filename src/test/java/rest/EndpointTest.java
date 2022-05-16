@@ -72,7 +72,6 @@ public class EndpointTest {
     }
 
     // Setup the DataBase (used by the test-server and this test) in a known state BEFORE EACH TEST
-    //TODO -- Make sure to change the EntityClass used below to use YOUR OWN (renamed) Entity class
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
@@ -247,6 +246,26 @@ public class EndpointTest {
             .statusCode(403)
             .body("code", equalTo(403))
             .body("message", equalTo("Not authenticated - do login"));
+    }
+
+    /*
+    Authors: Inga, Maria
+    Date: 16/05/2022
+
+    This function tests the sign up function
+    The function tested here is located src\main\java\security\SignInEndpoint
+    */
+    @Test
+    void signUpTest() {
+        String json = String.format("{username: \"testing\", password: \"testingPass\"}");
+        securityToken = given()
+                .contentType("application/json")
+                .body(json)
+                //.when().post("/api/login")
+                .when().post("/signup")
+                .then()
+                .extract().path("token");
+        //System.out.println("TOKEN ---> " + securityToken);
     }
 
     @Test

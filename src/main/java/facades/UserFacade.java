@@ -1,9 +1,13 @@
 package facades;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import entities.Role;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import security.errorhandling.AuthenticationException;
+import utils.EMF_Creator;
 
 import java.util.List;
 
@@ -62,13 +66,30 @@ public class UserFacade implements IUserFacade{
     }
 
     @Override
-    public User signUp(String username, String password) {
-        return null;
-    }
-
-    @Override
     public User changeUserRole(User user, String Role) {
         return null;
     }
 
+    /*
+    Authors: Inga, Maria
+    Date: 16/05/2022
+
+    This function adds a user to our database
+    */
+    @Override
+    public User signUp(String userName, String password) {
+        EntityManager em = emf.createEntityManager();
+        try{
+            em.getTransaction().begin();
+            User user = new User(userName, password);
+            Role role = new Role("user");
+            user.addRole(role);
+            em.persist(user);
+//            em.persist(role);
+            em.getTransaction().commit();
+            return user;
+        }finally {
+            em.close();
+        }
+    }
 }

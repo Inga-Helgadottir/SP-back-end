@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
+@NamedQuery(name = "users.deleteAllRows", query = "DELETE from User u")
 @Table(name = "users")
 public class User implements Serializable {
 
