@@ -4,6 +4,7 @@ import entities.Cocktail;
 import entities.MeasurementsIngredients;
 import entities.Role;
 import entities.User;
+import groovy.json.JsonOutput;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -77,6 +78,7 @@ class UserFacadeTest {
     Date: 16/05/2022
 
     This tests the function adds a user to our database
+    the function being tested is in src\test\java\facades\UserFacadeTest.java
     */
     @Test
     void signUpTest() {
@@ -90,6 +92,7 @@ class UserFacadeTest {
     Date: 16/05/2022
 
     This tests the function adds a user to our database when it is given wrong info
+    the function being tested is in src\test\java\facades\UserFacadeTest.java
     */
     @Test
     void signUpTestFail() {
@@ -97,4 +100,19 @@ class UserFacadeTest {
         User expected = new User("testing", "testingThis");
         assertNotEquals(actual.getUserName(), expected.getUserName());
     }
+
+    /*
+   Authors: Inga, Maria
+   Date: 17/05/2022
+
+   This tests the function that gets all the users in our database
+   the function being tested is in src\test\java\facades\UserFacadeTest.java
+   */
+    @Test
+    void seeAllUsers() {
+        int actual = facade.seeAllUsers().size();
+        int expected = 3;
+        assertEquals(actual, expected);
+    }
+
 }

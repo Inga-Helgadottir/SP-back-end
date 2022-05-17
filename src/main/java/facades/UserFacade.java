@@ -1,14 +1,15 @@
 package facades;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import dtos.UserDTO;
 import entities.Role;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import security.errorhandling.AuthenticationException;
-import utils.EMF_Creator;
+import javax.persistence.TypedQuery;
 
+import security.errorhandling.AuthenticationException;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,9 +61,38 @@ public class UserFacade implements IUserFacade{
         return user;
     }
 
+    /*
+   Authors: Inga, Maria
+   Date: 17/05/2022
+
+   This function gets all the users in our database
+   */
     @Override
-    public List<User> seeAllUsers() {
-        return null;
+    public List<UserDTO> seeAllUsers() {
+        EntityManager em = emf.createEntityManager();
+        try{
+            TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
+            List<User> users = query.getResultList();
+
+//            for (User u : users) {
+//                System.out.println(u);
+//                for (Role r: u.getRoleList()){
+//                    System.out.println(r.getRoleName());
+//                }
+//            }
+
+            List<UserDTO> udtos = UserDTO.getDtos(users);
+//            for (User u : users) {
+//                System.out.println(u);
+//                for (Role r: u.getRoleList()){
+//                    System.out.println(r.getRoleName());
+//                    u.addRole(r);
+//                }
+//            }
+            return udtos;
+        }finally{
+            em.close();
+        }
     }
 
     @Override
@@ -85,7 +115,6 @@ public class UserFacade implements IUserFacade{
             Role role = new Role("user");
             user.addRole(role);
             em.persist(user);
-//            em.persist(role);
             em.getTransaction().commit();
             return user;
         }finally {

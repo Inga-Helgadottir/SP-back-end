@@ -19,6 +19,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
 import facades.CocktailFacade;
+import facades.UserFacade;
 import utils.EMF_Creator;
 
 /**
@@ -30,6 +31,7 @@ public class DemoResource {
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final CocktailFacade cf = CocktailFacade.getCocktailFacade(EMF);
+    private static final UserFacade uf = UserFacade.getUserFacade(EMF);
 
     @Context
     private UriInfo context;
@@ -224,6 +226,23 @@ public class DemoResource {
         Cocktail c = GSON.fromJson(jsonContext, Cocktail.class);
         return Response.ok()
                 .entity(GSON.toJson(cf.makeCocktail(c)))
+                .build();
+    }
+
+    /*
+   Authors: Inga, Maria
+   Date: 17/05/2022
+
+   This tests the function that gets all the users in our database
+   the function being tested is in src\test\java\facades\UserFacadeTest.java
+   */
+    @GET
+    @Path("users")
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
+    public Response seeAllUsers() {
+        return Response.ok()
+                .entity(GSON.toJson(uf.seeAllUsers()))
                 .build();
     }
 

@@ -27,11 +27,11 @@ public class User implements Serializable {
   @JoinTable(name = "user_roles", joinColumns = {
     @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
     @JoinColumn(name = "role_name", referencedColumnName = "role_name")})
-  @ManyToMany
+  @ManyToMany(cascade = CascadeType.ALL)
   private List<Role> roleList = new ArrayList<>();
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
-  private List<Cocktail> cocktails;
+  private List<Cocktail> cocktails = new ArrayList<>();
 
   public List<String> getRolesAsStrings() {
     if (roleList.isEmpty()) {
@@ -56,10 +56,7 @@ public class User implements Serializable {
     this.userName = userName;
 
     this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt());
-
-    this.cocktails = new ArrayList<>();
   }
-
 
   public String getUserName() {
     return userName;
@@ -87,6 +84,7 @@ public class User implements Serializable {
 
   public void addRole(Role userRole) {
     roleList.add(userRole);
+    userRole.addToUserList(this);
   }
 
   public List<Cocktail> getCocktails() {
@@ -95,5 +93,15 @@ public class User implements Serializable {
 
   public void addCocktails(Cocktail cocktail) {
     this.cocktails.add(cocktail);
+  }
+
+  @Override
+  public String toString() {
+    return "User{" +
+            "userName='" + userName + '\'' +
+            ", userPass='" + userPass + '\'' +
+            ", roleList=" + roleList.toString() +
+            ", cocktails=" + cocktails.toString() +
+            '}';
   }
 }
