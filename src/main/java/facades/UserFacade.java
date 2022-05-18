@@ -5,6 +5,7 @@ import entities.Role;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import security.errorhandling.AuthenticationException;
@@ -74,30 +75,44 @@ public class UserFacade implements IUserFacade{
             TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
             List<User> users = query.getResultList();
 
-//            for (User u : users) {
-//                System.out.println(u);
-//                for (Role r: u.getRoleList()){
-//                    System.out.println(r.getRoleName());
-//                }
-//            }
-
             List<UserDTO> udtos = UserDTO.getDtos(users);
-//            for (User u : users) {
-//                System.out.println(u);
-//                for (Role r: u.getRoleList()){
-//                    System.out.println(r.getRoleName());
-//                    u.addRole(r);
-//                }
-//            }
             return udtos;
         }finally{
             em.close();
         }
     }
 
+    /*
+    Authors: Inga, Maria
+    Date: 18/05/2022
+
+    This function changes a users role in the database
+    */
     @Override
-    public User changeUserRole(User user, String Role) {
-        return null;
+    public UserDTO changeUserRole(String userName, String role) {
+        System.out.println("role");
+        System.out.println(role);
+        System.out.println(role.equals("stopAdmin"));
+        EntityManager em = emf.createEntityManager();
+        try {
+            User u = em.find(User.class, userName);
+            if(role.equals("stopAdmin")){
+                Role r = new Role("user");
+                List<Role> roleList = new ArrayList<>();
+                roleList.add(r);
+                u.setRoleList(roleList);
+            }else{
+                Role r = new Role(role);
+                u.addRole(r);
+            }
+            em.getTransaction().begin();
+            User u2 = em.merge(u);
+            em.getTransaction().commit();
+            System.out.println(u);
+            return new UserDTO(u2);
+        }finally{
+            em.close();
+        }
     }
 
     /*

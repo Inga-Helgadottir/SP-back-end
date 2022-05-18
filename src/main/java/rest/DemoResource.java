@@ -1,8 +1,6 @@
 package rest;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import entities.Cocktail;
 import entities.User;
 
@@ -244,6 +242,35 @@ public class DemoResource {
         return Response.ok()
                 .entity(GSON.toJson(uf.seeAllUsers()))
                 .build();
+    }
+
+    /*
+   Authors: Inga, Maria
+   Date: 18/05/2022
+
+   This function makes an endpoint that changes a users role in the database
+   */
+    @POST
+    @Path("users/changeUserRole")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
+    public Response changeUserRole(String jsonString) {
+        String userName;
+        String role;
+        try {
+            JsonObject json = JsonParser.parseString(jsonString).getAsJsonObject();
+            userName = json.get("userName").getAsString();
+            role = json.get("role").getAsString();
+
+            return Response.ok()
+                .entity(GSON.toJson(uf.changeUserRole(userName, role)))
+                .build();
+
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /*

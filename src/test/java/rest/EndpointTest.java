@@ -90,7 +90,8 @@ public class EndpointTest {
             User both = new User("user_admin", "test");
             both.addRole(userRole);
             both.addRole(adminRole);
-
+            User tester = new User("hihihi", "test");
+            tester.addRole(userRole);
             Cocktail c = new Cocktail("A1", "Alcoholic", "Cocktail glass", "Pour all ingredients into a cocktail shaker, mix and serve over ice into a chilled glass.", "https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg", "A1");
 
             MeasurementsIngredients m = new MeasurementsIngredients("1 3/4 shot Gin");
@@ -104,6 +105,7 @@ public class EndpointTest {
 
             em.persist(userRole);
             em.persist(adminRole);
+            em.persist(tester);
             em.persist(user);
             em.persist(admin);
             em.persist(both);
@@ -435,5 +437,29 @@ public class EndpointTest {
                 .assertThat()
                 .body("name", equalTo("new"))
                 .body("alcoholic", equalTo("Alcoholic"));
+    }
+
+    /*
+   Authors: Inga, Maria
+   Date: 18/05/2022
+
+   This tests the function that changes a users role in the database
+   the function being tested is in src\test\java\facades\UserFacadeTest
+   */
+    @Test
+    void changeUserRole() {
+        login("admin", "test");
+        String json = String.format("{userName: \"hihihi\", role: \"admin\"}");
+
+        given()
+                .headers(
+                        "x-access-token",
+                        securityToken,"Content-type",MediaType.APPLICATION_JSON )
+                .and()
+                .body(json)
+                .when()
+                .post("info/users/changeUserRole")
+                .then()
+                .statusCode(200);
     }
 }
