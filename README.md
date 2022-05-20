@@ -1,7 +1,5 @@
 *This project requires that you have a functional droplet up and running with tomcat and SQL
 
-*right now the project actions wil fail
-
 # How to use the startcode
 
 ## To deploy with a push to github
