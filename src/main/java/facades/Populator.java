@@ -46,46 +46,33 @@ public class Populator {
         em.persist(admin);
         em.persist(both);
         em.getTransaction().commit();
-        System.out.println("PW: " + user.getUserPass());
-        System.out.println("Testing user with OK password: " + user.verifyPassword("test"));
-        System.out.println("Testing user with wrong password: " + user.verifyPassword("test1"));
-        System.out.println("Created TEST Users");
     }
 
     public static void populateCocktails(){
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
 
-//        UserFacade uf = new UserFacade();
-//        uf.getUserFacade(emf);
-//        User user = uf.findUserByName("user");
-        Cocktail c = new Cocktail("A1", "Alcoholic", "Cocktail glass", "Pour all ingredients into a cocktail shaker, mix and serve over ice into a chilled glass.", "https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg", "A1");
-        Cocktail c2 = new Cocktail("ABC", "Alcoholic", "Shot glass", "Layered in a shot glass.", "https://www.thecocktaildb.com/images/media/drink/tqpvqp1472668328.jpg", "ABC");
+        Cocktail c = new Cocktail("Hot Wired", "Alcoholic", "Cocktail glass", "Fill shaker with 2 scoops of crushed ice. Add all the ingredients & blend. Then blend it until it becomes a slushie. Pour it in a black salt rimmed glass", "/static/media/cocktailGlass.7c4beed71b440dbede22.jpg", "Hot Wired");
 
         em.getTransaction().begin();
-        MeasurementsIngredients m = new MeasurementsIngredients("1 3/4 shot Gin");
-        MeasurementsIngredients m2 = new MeasurementsIngredients("1 shot Grand Marnier");
-        MeasurementsIngredients m3 = new MeasurementsIngredients("1/4 shot Lemmon juice");
-        MeasurementsIngredients m4 = new MeasurementsIngredients("1/8 shot Grenadine");
+        MeasurementsIngredients m = new MeasurementsIngredients("60 ml vodka");
+        MeasurementsIngredients m2 = new MeasurementsIngredients("15 ml lime juice");
+        MeasurementsIngredients m3 = new MeasurementsIngredients("5 Ice cubes");
+        MeasurementsIngredients m4 = new MeasurementsIngredients("100 gm black currants");
+        MeasurementsIngredients m5 = new MeasurementsIngredients("1 sprig Mint Leaves");
+
         c.addMeasurementsIngredients(m);
         c.addMeasurementsIngredients(m2);
         c.addMeasurementsIngredients(m3);
         c.addMeasurementsIngredients(m4);
-
-//        MeasurementsIngredients m5 = new MeasurementsIngredients("1/3 Amaretto");
-//        MeasurementsIngredients m6 = new MeasurementsIngredients("1/3 Baileys irish cream");
-//        MeasurementsIngredients m7 = new MeasurementsIngredients("1/3 Cognac");
-//        c2.addMeasurementsIngredients(m5);
-//        c2.addMeasurementsIngredients(m6);
-//        c2.addMeasurementsIngredients(m7);
+        c.addMeasurementsIngredients(m5);
 
         em.persist(c);
-//        em.persist(c2);
         em.getTransaction().commit();
     }
     
     public static void main(String[] args) {
-//        populate();
-        populateCocktails();
+        populate();
+//        populateCocktails();
     }
 }
