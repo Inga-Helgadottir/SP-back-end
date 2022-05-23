@@ -229,11 +229,10 @@ public class DemoResource {
     }
 
     /*
-   Authors: Inga, Maria
-   Date: 17/05/2022
+   Authors: Inga, Maria, Ole, Jonas
+   Date: 23/05/2022
 
-   This tests the function that gets all the users in our database
-   the function being tested is in src\test\java\facades\UserFacadeTest.java
+   this is an endpoint to make it easier to populate the database on our droplet
    */
     @GET
     @Path("populateMyDBWithUsersAndACocktail")
@@ -243,6 +242,13 @@ public class DemoResource {
         Populator.main(args);
     }
 
+    /*
+   Authors: Inga, Maria
+   Date: 17/05/2022
+
+   This tests the function that gets all the users in our database
+   the function being tested is in src\test\java\facades\UserFacadeTest.java
+   */
     @GET
     @Path("users")
     @Produces(MediaType.APPLICATION_JSON)
