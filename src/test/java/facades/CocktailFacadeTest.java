@@ -44,12 +44,7 @@ class CocktailFacadeTest {
             em.getTransaction().commit();
 
             em.getTransaction().begin();
-
             Cocktail c = new Cocktail("A1", "Alcoholic", "Cocktail glass", "Pour all ingredients into a cocktail shaker, mix and serve over ice into a chilled glass.", "https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg", "A1");
-            em.getTransaction().commit();
-            em.getTransaction().begin();
-            Cocktail c2 = new Cocktail("ABC", "Alcoholic", "Shot glass", "Layered in a shot glass.", "https://www.thecocktaildb.com/images/media/drink/tqpvqp1472668328.jpg", "ABC");
-
             MeasurementsIngredients m = new MeasurementsIngredients("1 3/4 shot Gin");
             MeasurementsIngredients m2 = new MeasurementsIngredients("1 shot Grand Marnier");
             MeasurementsIngredients m3 = new MeasurementsIngredients("1/4 shot Lemmon juice");
@@ -58,6 +53,10 @@ class CocktailFacadeTest {
             c.addMeasurementsIngredients(m2);
             c.addMeasurementsIngredients(m3);
             c.addMeasurementsIngredients(m4);
+            em.persist(c);
+            em.getTransaction().commit();
+            em.getTransaction().begin();
+            Cocktail c2 = new Cocktail("ABC", "Alcoholic", "Shot glass", "Layered in a shot glass.", "https://www.thecocktaildb.com/images/media/drink/tqpvqp1472668328.jpg", "ABC");
 
             MeasurementsIngredients m5 = new MeasurementsIngredients("1/3 Amaretto");
             MeasurementsIngredients m6 = new MeasurementsIngredients("1/3 Baileys irish cream");
@@ -66,7 +65,6 @@ class CocktailFacadeTest {
             c2.addMeasurementsIngredients(m6);
             c2.addMeasurementsIngredients(m7);
 
-            em.persist(c);
             em.persist(c2);
 
             em.getTransaction().commit();
@@ -106,7 +104,7 @@ class CocktailFacadeTest {
         int actualId = c.getId();
         String actualName = c.getName();
         int expectedId = 1;
-        String expectedName = "ABC";
+        String expectedName = "A1";
         assertEquals(expectedId, actualId);
         assertEquals(expectedName, actualName);
     }
