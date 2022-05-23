@@ -127,7 +127,7 @@ public class UserFacade implements IUserFacade{
         try{
             em.getTransaction().begin();
             User user = new User(userName, password);
-            Role role = new Role("user");
+            Role role = em.find(Role.class, "user");
             user.addRole(role);
             em.persist(user);
             em.getTransaction().commit();
