@@ -17,6 +17,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
 import facades.CocktailFacade;
+import facades.Populator;
 import facades.UserFacade;
 import utils.EMF_Creator;
 
@@ -234,6 +235,14 @@ public class DemoResource {
    This tests the function that gets all the users in our database
    the function being tested is in src\test\java\facades\UserFacadeTest.java
    */
+    @GET
+    @Path("populateMyDBWithUsersAndACocktail")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void populate() {
+        String[] args = new String[0];
+        Populator.main(args);
+    }
+
     @GET
     @Path("users")
     @Produces(MediaType.APPLICATION_JSON)
